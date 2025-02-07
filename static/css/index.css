@@ -1,0 +1,266 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.results-carousel {
+  overflow: hidden;
+}
+
+/* .results-carousel .item {
+  margin: 5px; 
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 0;
+  font-size: 0;
+} */
+
+
+.results-carousel .item {
+  position: relative; /* 使子元素可以通过绝对定位布局 */
+  margin: 5px; /* 视频之间的间距 */
+  overflow: hidden;
+  border: 0px solid #bbb;
+  border-radius: 0px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel .item video {
+  display: block; /* 确保视频占满容器 */
+  width: 100%;
+  height: auto;
+}
+
+.results-carousel .item .prompt-text {
+  position: absolute; /* 绝对定位文字描述 */
+  top: 0; /* 固定在容器顶部 */
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7); /* 半透明背景，便于文字阅读 */
+  color: white; /* 文字颜色为白色，清晰可见 */
+  padding: 2px;
+  font-size: 8px;
+  line-height: 1.5;
+  z-index: 1; /* 确保文字在视频上方 */
+  opacity: 0; /* 初始隐藏 */
+  visibility: hidden; /* 初始不可见 */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* 添加动画效果 */
+  pointer-events: none; /* 使文字描述不可阻挡鼠标事件 */
+}
+
+.results-carousel .item:hover .prompt-text {
+  opacity: 1; /* 鼠标悬停时显示 */
+  visibility: visible;
+}
+
+
+.results-carousel video {
+  margin: 0 auto;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  /* border-radius: 10px; */
+  
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prompt-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #333;
+  position: relative;
+  z-index: 2; /* Ensure text is above other elements */
+  padding-bottom: 20px; /* Adds space below the text to avoid overlap */
+}
+
+.slider-pagination {
+  display: none !important;
+}
+
+#toc {
+  position: fixed; /* Fixed position */
+  top: 10px; /* Distance from the top of the page */
+  left: 10px; /* Distance from the left of the page */
+  background: #f9f9f9; /* Background color */
+  border: 1px solid #ddd; /* Border */
+  padding: 10px; /* Inner padding */
+  width: 300px; /* Slightly reduced width */
+  z-index: 9999; /* High z-index to ensure it stays in front */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow to enhance visual hierarchy */
+  font-size: 12px; /* Adjust overall font size */
+}
+
+#toc ul {
+  list-style: none; /* Remove list style */
+  padding: 0; /* Remove inner padding */
+}
+
+#toc li {
+  margin: 5px 0; /* Spacing between list items */
+}
+
+#toc a {
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Set link color */
+  font-size: 13px; /* Font size for link text */
+}
+
+#toc a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#tocContent.collapsed {
+  display: none;
+}
+
+#toggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}

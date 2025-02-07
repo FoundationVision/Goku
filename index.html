@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="We present Goku, a new family of joint image-and-video generation models based on rectiﬁed ﬂow Transformers to achieve industry-grade performance. We present the foundational elements required for high-quality visual generation, including data curation, model design, ﬂow formulation, etc. Key contributions inclued a meticulous data ﬁltering pipeline that ensures highquality, ﬁne-grained image and video data curation; and the pioneering use of rectiﬁed ﬂow for enhanced interaction among video and image tokens.">
+  <meta name="keywords" content="Goku, Generative Model, Text-to-Video Generation, Diffusion Model, Rectified Flow, Flow Transformers">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Goku: Generative Flow Kit for Uniﬁed Image-Video Creation">
+  <meta property="og:description"
+        content="We present Goku, a new family of joint image-and-video generation models based on rectiﬁed ﬂow Transformers to achieve industry-grade performance.">
+  <title>Goku: Generative Flow Kit for Uniﬁed Image-Video Creation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="./static/js/google.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <script type="text/javascript" async
+  src="./static/js/tex-mml-chtml.js">
+  </script>
+
+  <link href="./static/css/fonts.css"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="./static/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/adobe.svg"> -->
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Goku: Generative Flow Kit for Uniﬁed Image-Video Creation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Goku Foundation Team</a></span>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<hr>
+      <div class="container " id="text2video">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">High qualityText to Video Generation</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            Goku is a self-developed video generation model based on DIT architecture. It has self-developed 3D VideoVAE + Diffusion transformer architecture and can support the generation of 720P, 24FPS, and 4s high definition real videos.
+            <br>
+            Goku supports <b>Text-to-Video generation</b>, <b>Image-to-Video generation</b>, <b>Text-to-image generation</b>.
+          </p>
+        </div>
+      </div>
+
+
+<section class="section">
+    <h2 class="title is-3 has-text-centered">Text-to-Video demo</h2>
+
+    <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A capybara relaxes in a wooden barrel filled with steaming hot spring water, its serene gaze adding tranquility to the scene. Perched atop its head is a vibrant orange, adding a playful contrast to its soft brown fur.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A white vintage SUV speeds up a steep dirt road surrounded by pine trees on a steep mountain slope.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_3.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a modern, upscale hotel suite, the camera starts from the center of the living room. The room features light-colored sofas and large floor-to-ceiling windows overlooking the city's skyscrapers and night view.</p>
+        </div>
+
+        <div class="item">
+          <video id="berliner" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_5.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">An extreme close-up shot of an ant emerging from its nest. The camera pulls back revealing a neighborhood beyond the hill.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_motion/motion_1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A cyclist pedals furiously in a downhill race, the wind whipping past their helmet as they navigate sharp turns on the rugged mountain path.</p>
+        </div>
+      </div>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_motion/motion_2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A snowboarder carves down a steep slope, their board cutting swiftly through the snow. Powder sprays in all directions as they zigzag.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/human/human_3.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic close-up shot with smooth camera movement, a charming Chinese woman is seen outdoors on a grassy lawn. She is wearing a white shirt paired with a white jacket, and she adorns a necklace and earrings, adding elegance to her appearance. The woman is gracefully walking around an area enclosed by a wooden fence, moving in a gentle arc as she walks past the fence. The background features a lush green lawn and tent-like structures, creating a serene and refreshing atmosphere. The lighting is ample, highlighting the natural beauty of the scene.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/unreal/unreal_2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Two pirate ships engaged in an intense battle, their sails billowing as they maneuver through the dark, swirling surface of a coffee cup.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/unreal/unreal_8.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A pig flying in the blue sky.</p>
+        </div>
+
+      </div>
+
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/143__seed_42.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A fisherman casts his line into a misty lake at dawn, the stillness of the water interrupted only by the ripples spreading from the cast in a peaceful scene.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/146__seed_42.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A honeybee drifting between lavender blossoms. Each wingbeat slowed to a gentle wave, pollen particles floating in still air. In super slow motion, even the bee's compound eyes shimmer, revealing details normally invisible to the human eye.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/183__seed_42.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A close-up shot reveals an elderly sailor in weathered yellow oilskins, smoking a pipe on his catamaran's deck. His yellow cat curls contentedly beside him as sunset light bathes the scene in warm tones. Gentle waves lap against the hull while seabirds circle overhead.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/186__seed_42.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Through a Venetian canal at dawn, glide as morning light paints ancient facades in pastel hues. Track a solitary gondola as it approaches a weathered stone bridge. Above, wooden shutters open with a creak as an unseen resident scatters crumbs to circling pigeons.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/268__seed_42.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A retro, 70s Urban Grit style scene shows a lone astronaut wandering through a desolate Martian landscape. The colors are muted and dusty, with a worn-down, rugged space suit adding to the gritty, survivalist tone as they search for signs of life against the backdrop of a blood-red sky.</p>
+        </div>
+
+      </div>
+
+</section>
+
+<section class="section">
+    <h2 class="title is-3 has-text-centered">Text-to-Video demo(portrait)</h2>
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_6.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A vintage steam train with gleaming black and red carriages chugs along a winding track through a lush, green countryside.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_9.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic full-view shot, the camera gently moves along a mountain road lined with blooming cherry blossom trees on both sides.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/human/human_5.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A realistically filmed video with a medium shot and stationary camera captures a 28-year-old Chinese woman standing gracefully on a bridge. She is charming and fresh-faced, wearing a conservative black dress that maintains a modest appearance. Her long hair gently sways in the breeze as she holds her hands naturally at her sides. In the background, a vibrant city river is visible, with glittering lights illuminating both banks, creating a picturesque urban scene.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/hq_8.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A corgi wearing sunglasses strolling on the beach of a tropical island.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/high_quality/278__seed_320.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The video begins with a realistic capture, transitioning from a mid-range view to a close-up as the camera zooms in from a distance and then remains focused on the subject. The main character is a charming gray squirrel perched on the trunk of a large tree. The squirrel is sitting on a branch, attentively gazing at its surroundings while slowly nibbling on food. The scene features abundantly green trees and yellow leaves, creating beautiful light and shadow effects on the ground and nearby structures. The environment is a tranquil park with ample lighting and a serene atmosphere.</p>
+        </div>
+
+</div>
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/portrait/0.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The model on the screen is walking towards the camera.</p>
+        </div>
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/portrait/1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The model in the picture turns left and right to show the clothes on his body.</p>
+        </div>
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/portrait/2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The model in the picture pulled the cuffs of the top, then turned left and right to showcase the clothes.</p>
+        </div>
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/portrait/3.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A blue car driving down a dirt road near train tracks.</p>
+        </div>
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/portrait/4.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A little boy in a yellow raincoat leaps energetically over a large puddle in an alleyway.</p>
+        </div>
+
+</div>
+
+</section>
+
+<section class="section">
+    <h2 class="title is-3 has-text-centered">Image-to-Video demo</h2>
+
+<div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/0.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A woman in workout gear is lifting weights at a gym, her biceps flexing with each lift, sweat visible on her forehead, with a closeup on her determined expression and muscle movement.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A grandmother with neatly combed grey hair stands behind a colorful birthday cake with numerous candles at a wood dining room table, expression is one of pure joy and happiness, with a happy glow in her eye. She leans forward and blows out the candles with a gentle puff, the cake has pink frosting and sprinkles and the candles cease to flicker, the grandmother wears a light blue blouse adorned with floral patterns, several happy friends and family sitting at the table can be seen celebrating, out of focus. The scene is beautifully captured, cinematic, showing a 3/4 view of the grandmother and the dining room. Warm color tones and soft lighting enhance the mood.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/3.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a cozy, dimly lit room adorned with vintage posters and soft, ambient lighting, a person is playing a guitar, their fingers skillfully strumming the strings, creating a soothing melody.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/4.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">On a sun-dappled, tree-lined street in a quiet suburban neighborhood, a person is riding a bike, his hair flowing in the gentle breeze as they pedal leisurely.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/84__seed_126.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A realistically shot video features a medium shot with a stationary camera. A 22-year-old Chinese woman with long, silky black hair sits at a library's reading table. She is wearing a casual yet stylish outfit, consisting of a fitted white blouse and black jeans. Her face is delicately framed by her hair as she focuses intensely on an open book. After a long period of reading, she appears to experience a headache. The woman sets the book down and rubs her temples with both hands, displaying a pained expression. The serene and quiet atmosphere of the library forms the backdrop, filled with wooden shelves and numerous books.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/263__seed_305.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistically shot, mid-range scene with a stationary camera, two cats interact on a white sofa indoors. A striking orange and white cat sits elegantly on the sofa, attentively watching an orange cat. The orange cat stands and animatedly waves its front paws, seemingly attempting to playfully swat at the other cat. This interaction takes place in a home living room, where a closed white door serves as a simple background, complementing the clean and clear style of the setting.</p>
+        </div>
+
+</div>
+
+<div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/112__seed_154.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a brightly lit study room, a charming young woman wearing a sporty jacket is intently writing at a desk. The desk is adorned with open books and various stationery items. In the background, bookshelves filled with books and decorative pieces are visible, creating a quiet and conducive environment for studying. The camera captures her focused expression and slight movements as she writes, enhancing the serene atmosphere of the scene.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/135__seed_177.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic filming style, the video features a smooth-moving, first-person camera perspective from inside a car driving along a mountain road. The view shifts gently between the front of the car and the side windows. Through the front window, the interior of a tunnel briefly appears, while the side windows reveal a wide-open mountain landscape. The scene captures blue skies with fluffy white clouds, undulating peaks, and dense forests. The overall atmosphere is fresh and natural, showcasing stunning scenery.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/192__seed_234.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The video, captured in a realistic style with a wide panoramic perspective and a stationary camera, showcases a lush bamboo forest with tall, densely packed bamboo. In the center, large rocks are topped by a flowing waterfall. The water cascades over the rocks, creating a mist that envelops the area, exuding a sense of natural serenity and freshness. The background features the bamboo forest, where light filters through the bamboo, creating a tranquil and harmonious atmosphere.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/232__seed_274.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic and detailed close-up shot, the camera remains stationary, capturing a piece of fried chicken cooking in a sizzling hot oil pan. The oil is vigorously bubbling, creating a dynamic and lively scene. The camera highlights the golden, crispy exterior of the fried chicken, contrasting with the roiling oil in the pan. In the background, there are other kitchen items subtly visible, but the focus remains entirely on the fried chicken. The entire scene exudes a mouthwatering and tempting culinary allure.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/251__seed_293.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic medium shot with a static camera, a koala stands on a tree trunk, gently chewing eucalyptus leaves. The koala's expression is calm, and it is covered in soft, grey and white fur. The background features a clear blue sky and some lush green foliage, creating a serene and natural environment.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/I2V/252__seed_294.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a realistic filming with a medium shot, the camera slowly moves to capture an Australian kangaroo walking through the wilderness, glancing around. The kangaroo approaches the camera, allowing viewers to clearly see the details of its face and body. The background reveals an expansive wilderness landscape with red sandy soil on the ground and trees in the distance. The lighting is abundant, creating a serene and natural atmosphere.</p>
+        </div>
+
+</div>
+
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This paper presents our latest advancements, <b>Goku</b>, a new family of joint image-and-video generation models based on rectiﬁed ﬂow Transformers to achieve industry-grade performance.
+          </p>
+          <p>
+            The <b>Goku</b> models achieve superior performance in both qualitative and quantitative assessments. Notably, <b>Goku</b> achieves top scores on major benchmarks: 0.76 on GenEval and 83.65 on DPG-Bench for text-to-image generation, alongside 84.8 on VBench for text-to-video tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Vbench Performance</h2>
+        <img src="./static/images/vbench.png"
+             alt="Vbench Performance."
+             class="framework-image">
+             <div class="content has-text-justified">
+              <p>
+                <b>Goku-T2V</b> attains an impressive score of 84.85 in VBench and has secured state-of-the-art performance on the leaderboard, surpassing several leading commercial text-to-video models.
+              </p>
+            </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+    <h2 class="title is-3 has-text-centered">Comparisons with State-of-the-Art Commercial Models</h2>
+
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/0.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a bustling city park, a person sits on a wooden bench, surrounded by the vibrant colors of blooming flowers and the gentle rustling of leaves in the breeze.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">In a picturesque park with a winding path surrounded by lush greenery and blooming flowers, a bicycle with a sleek frame and shiny spokes stands propped against a wooden bench.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/6.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">On a winding mountain road with a breathtaking view of the valley below, a sleek, black motorcycle with chrome accents is parked, its polished surface gleaming in the sunlight.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/8.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A drop of serum falling onto glowing skin in extreme closeup, the liquid looks dewy under soft lighting.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/10.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">On a misty morning, a vintage steam train with gleaming black and red carriages chugs along a winding track through a lush, green countryside, with billows of white smoke trailing behind it.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/18.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A giraffe stretches its neck to reach the tender leaves at the top of a tall acacia tree in the savannah. The dry, golden grass stretches out in the distance.</p>
+        </div>
+
+      </div>
+
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/36.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A martial artist performs a flurry of fast kicks and punches in a dojo, their movements precise and fluid. Each motion is executed with speed and grace, the sound of their rapid strikes cutting through the air. The floor beneath them vibrates with every powerful kick, as they pivot quickly between stances.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/38.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Two fencers duel on a narrow platform, their blades moving in quick, precise strikes and parries. Each lunge is countered with a swift retreat, their feet gliding across the floor in a series of rapid, rhythmic steps. The metallic clash of swords punctuates the quick exchanges, while their white uniforms flutter with each agile motion.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/51.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A photographer in a crowded market is taking photos of street vendors, adjusting her camera lens, with a closeup showing her focused gaze through the viewfinder.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/52.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A barista in a bustling café is making latte art, pouring steamed milk into a cup of coffee, with a closeup on her skilled hands and the intricate patterns forming.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/56.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">A man surfing on a wave, with the camera following his movement and focussing on his face. He is smiling and giving a thumbs-up to the camera, conveying a sense of enjoyment and excitement.  The ocean waves are vibrant and dynamic around him, with sunlight glistening on the water. The background features a clear blue sky, enhancing the lively atmosphere of the scene as he rides the waves with confidence and enthusiasm.</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/comparisons/99.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">The video shows an individual standing in a kitchen, wearing an apron, and holding a frying pan positioned above a burner. The environment includes a kitchen with white walls, and a cooking range is installed on a countertop. There are various condiments and a bowl with green vegetables on the countertop. The individual is seen using a ladle to stir contents in the pan, and adding other ingredients such as a white powder which could be sugar or salt.</p>
+        </div>
+
+      </div>
+
+</section>
+
+<section class="section">
+  
+    <h2 class="title is-3 has-text-centered">Learning From Goku</h2>
+    <!-- Block 1: First 2x3 Videos -->
+    <div class="block">
+      <h2 class="title is-5 has-text-centered">Image & Video Joint training significantly improve video quality</h2>
+      <div class="columns is-multiline is-centered">
+        <!-- Video 1 -->
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/joint_ablation/video_1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku w/o Joint Training</p>
+        </div>
+        <!-- Video 2 -->
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/joint_ablation/joint_1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku with Joint Training</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Block 2: Second 2x3 Videos -->
+    <div class="block">
+      <h2 class="title is-5 has-text-centered">High-quality video data fine-tuning improve generation quality</h2>
+      <div class="columns is-multiline is-centered">
+        <!-- Repeat videos for the second block -->
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/hq_ablation/no_hq_1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku w/o High-quality fine-tuning</p>
+        </div>
+        <!-- Add additional videos similarly -->
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/hq_ablation/hq_1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku with High-quality fine-tuning</p>
+        </div>
+      </div>
+      <h2 class="title is-5 has-text-centered">Scaling Effects on Goku</h2>
+      <div class="columns is-multiline is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/scale_ablation/2b_2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku-2B</p>
+        </div>
+        <div class="column is-half">
+          <div class="video-container">
+            <video controls autoplay muted>
+              <source src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/scale_ablation/8b_2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="video-title">Goku-8B</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Learn more about Goku</h2>
+    <!-- Block 1: First 2x3 Videos -->
+    <div class="block">
+      <h2 class="title is-5 has-text-centered">Read our research paper to learn how we’ve set industry-leading video generation model.</h2>
+      <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://github.com/FoundationVision/Goku"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Slides</span>
+                </a>
+              </span> -->
+            </div>
+    </div>
+
+  </div>
+</section>
+
+<hr>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Meet Goku Plus (Goku+): 1st Video Ads Foundation Models</h1>
+          <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+            <p>
+              <b>Goku+</b> is a new family of video foundation models built on the top of Goku, specifically designed to optimize advertising scenarios involving humans and products to maximize advertising performance. Our latest research breakthroughs demonstrate how you can create advertising videos at 100x less costs.</a>
+            </p>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="container " id="text2video">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Goku+: Create Marketing Avatar from Text</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            <b>Goku+</b> transforms text into hyper-realistic human videos, and significantly outperforms existing methods. In particular, it can generate videos longer than 20 seconds, with stable hand movements and highly expressive facial expressions and body movements of human subjects.
+          </p>
+        </div>
+      </div>
+
+
+<section class="section">
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A young man aged 25 to 35 is sitting in the living room in a leisurely environment. He is dressed in casual attire suitable for spring or autumn. The room exudes a comfortable and minimalist beauty, quite different from the typical office interior. He is live-streaming, sitting in front of a desk with a laptop in front of him. His demeanor is relaxed and friendly, occasionally gesturing with his hands while speaking. The background of the living room includes some personal style elements, such as a few modern pieces of furniture or decorations, creating a cozy atmosphere.
+            <br>
+          Scripts: Hey here, welcome to the Goku+. Goku+ is a new family of video foundation models built on the top of Goku, specifically designed to optimize advertising scenarios involving humans and products to maximize advertising performance. Our latest research breakthroughs demonstrate how you can create advertising videos at 100x less costs.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt :A beautiful woman, aged between 25 and 35, is dressed in a professional yet chic outfit, emphasizing her intellectual character. She exudes a sense of sophistication and confidence. The spring and autumn seasons are reflected in her attire, which could be a stylish blazer paired with a fashionable blouse, marking her as a host. She is captured in an outdoor setting on a high-end street, possibly lined with upscale boutiques or cafes. Despite being outside, she maintains a professional demeanor, possibly speaking into a microphone or engaging with an unseen audience, showing her poise and eloquence as a host.
+          <br>
+          Scripts: Goku+不仅能从0到1生成口播视频，也能生成更具感染力的走播视频，支持各种语言，不需要任何数字人录制，极大降低了视频广告制作门槛。
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/3.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A 55-year-old, beautiful Asian woman with fair, delicate skin and smooth, shiny hair is wearing conservative clothing, seated in a luxurious Frenchstyle bathroom. This is a close-up shot of her face, from a near distance. She is sitting naturally, facing the camera, and chatting with us.
+            <br>
+          Scripts: Discover the Future of TechNova! Say goodbye to the ordinary and hello to the extraordinary. Our cutting-edge solutions redefine how you work, play, and live. Experience seamless technology designed to make your life smarter, faster, and better. Don't wait to embrace innovation today with TechNova!
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/4.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A young man dressed in a red cardigan over a white shirt, sitting in front of a festive background decorated with traditional Chinese elements such as red lanterns and decorations. The man is smiling and appears to be speaking or presenting, with an open and friendly expression. The setting suggests a celebratory or cultural theme, possibly linked to Chinese New Year.
+            <br>
+          Scripts : 真没想到都这个时候了，居然还有这种品牌，不仅不找明星代言，还把钱都投入到产品成分上，到底还是不是国货啊？原来是这家有着百年历史的经典国货品牌。一直专注于产品的研发，把经费都用在了提高产品品质上。虽然价格便宜，但这款年货可是大家过年必备的年货清单上的好东西。而且还有精美的礼盒包装，一站式就能买齐所有年货。现在正好赶上春节特惠，成千上万的知名品牌年货都是低价促销，赶快来抢购吧！
+          </p>
+        </div>
+
+</div>
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/5.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A pretty young lady sits facing forward at a desk with a laptop in front of her. She is wearing a white shirt and looking straight into the camera. Behind her is a bookshelf filled with books and some decorative items. A white cup is placed on the desk.
+            <br>
+          Scripts : Hey here, welcome to the Goku+. Goku+ is a new family of video foundation models built on the top of Goku, specifically designed to optimize advertising scenarios involving humans and products to maximize advertising performance. Our latest research breakthroughs demonstrate how you can create advertising videos at 100x less costs.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/6.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A pretty young lady sits facing forward at a desk with a laptop in front of her. She is wearing a light blue shirt and looking straight into the camera. Behind her is a bookshelf filled with books and some decorative items. A white cup is placed on the desk.
+          <br>
+          Scripts : Hey here, welcome to the Goku+. Goku+ is a new family of video foundation models built on the top of Goku, specifically designed to optimize advertising scenarios involving humans and products to maximize advertising performance. Our latest research breakthroughs demonstrate how you can create advertising videos at 100x less costs.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/7.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A woman wearing a light blue blouse with a bow tie detail at the collar and a white skirt. She is seated on a black chair with a collection of awards or trophies displayed on a shelf behind her. The woman is smiling and appears to be speaking or presenting, with her hands held together in front of her. The background gives a professional, polished vibe, suggesting a setting of recognition or achievement.
+            <br>
+          Scripts : 大家好，我是98年的啊，我现在 辞职出来环游世界了。哎呀，我真的没有那个闲工夫啊，专门拍个视频出来骗人。给你们看一下我的微信余额，如果说你的工资不高，很缺钱的话，一定要听我| 的啊，去下一个我视频下方这个软件。我保证你下完之后啊一定 会回来感谢我的。
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/Avatar/8.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Prompt : A beautiful woman in her late twenties to early thirties, dressed in a professional, tailored outfit, is walking down a high-end city street. Her attire, perfect for spring or autumn, includes a sleek blazer over a blouse and tailored trousers or a pencil skirt. She carries a leather briefcase or designer handbag, exuding an air of sophistication and confidence suited to her executive role. Her hair is styled neatly, befitting the intellectual aura she projects. As she moves, she occasionally gestures while talking on her smartphone, indicative of her busy, yet organized lifestyle. The backdrop is an upscale urban environment, with luxury boutiques, modern architecture, and freshly planted trees lining the street, capturing the essence of her high-end, professional world.
+            <br>
+          Scripts : 嘿，快看这里，欢迎来到Goku加。Goku加是基于Goku构建的新一代视频基础模型，专门设计用于优化涉及人和产品的广告场景，以最大化广告效果。我们最新的研究突破展示了您如何以100倍的成本降低制作广告视频。 
+          </p>
+        </div>
+
+</div>
+
+</section>
+
+
+<div class="container " id="text2video">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Goku+: Turn Product Image To Video Clip</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            <b>Goku+</b> converts your product images into captivating video clips, ensuring end-to-end optimization. This process enhances the overall appeal and effectiveness of your marketing materials.
+          </p>
+        </div>
+      </div>
+
+
+<section class="section">
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/1.mp4"
+              type="video/mp4">
+          </video>
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/2.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/3.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/4.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+</div>
+
+<div id="results-carousel" class="carousel results-carousel" style="width: 47.5vw; display:inline-block;">
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/4.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/5.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/6.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads_I2V/3.mp4"
+              type="video/mp4">
+          </video>
+        </div>
+
+</div>
+
+</section>
+
+
+<div class="container " id="text2video">
+        <h2 id="obj-comparison" class="title is-3 has-text-centered">Goku+: Optimize Advertising Scenarios</h2>
+        <div class="content has-text-justified" style="font-size: 1.5rem; line-height: 1.8;">
+          <p>
+            <b>Goku+</b> specializes in creating customized high-definition videos from text to optimize advertising scenarios, and significantly outperforms competing video foundation models.
+          </p>
+        </div>
+      </div>
+
+
+<section class="section">
+
+<div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads/eat_crf1.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Food & Snack.
+          </p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads/walking2_crf2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Fashion & Cloth</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads/showcase2_crf2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">Product Display</p>
+        </div>
+
+        <div class="item">
+          <video id="cereal" controls preload="metadata" autoplay muted loop playsinline>
+            <source
+              src="https://huggingface.co/datasets/FoundationVision/goku_website/resolve/main/videos/ads/fmcg_crf2.mp4"
+              type="video/mp4">
+          </video>
+          <p class="prompt-text">FMCG</p>
+        </div>
+
+</div>
+
+</section>
+
+<br>
+<br>
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Goku,
+  author    = {Shoufa Chen, Chongjian GE, Yuqi Zhang, Yida Zhang, Fengda Zhu, Hao Yang, Hongxiang Hao, Wuhui, Zhichao Lai, Yifei Hu, Ting-Che Lin, Shilong Zhang, Fu Li, Chuan Li, Xing Wang, Yanghua Peng, Peize Sun, Ping Luo, Yi Jiang, Zehuan Yuan, BINGYUE PENG, Xiaobing Liu},
+  title     = {Goku: Generative Flow Kit for Unified Image-Video Creation},
+  journal   = {arXiv preprint},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section> -->
+
+</body>
+</html>
