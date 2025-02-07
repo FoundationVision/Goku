@@ -1,7 +1,27 @@
 body {
   font-family: 'Noto Sans', sans-serif;
+  background-color: #000;
 }
 
+.has-text-justified {
+  color: white;
+}
+
+.video-title{
+  color: white;
+}
+
+.has-text-centered {
+  color: white;
+}
+
+.is-3 {
+  color: white;
+}
+
+.publication-title {
+  color: white;
+}
 
 .footer .icon-link {
     font-size: 25px;
