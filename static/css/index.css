@@ -128,6 +128,50 @@ body {
 }
 
 
+.video-demo{
+  overflow: hidden;
+}
+
+.video-demo .item {
+  position: relative; /* 使子元素可以通过绝对定位布局 */
+  margin: 5px; /* 视频之间的间距 */
+  overflow: hidden;
+  border: 0px solid #bbb;
+  border-radius: 0px;
+  padding: 0;
+  font-size: 0;
+}
+
+.video-demo .item video {
+  display: block; /* 确保视频占满容器 */
+  width: 100%;
+  height: auto;
+}
+
+
+.video-demo .item .prompt-text {
+  position: absolute; /* 绝对定位文字描述 */
+  top: 0; /* 固定在容器顶部 */
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7); /* 半透明背景，便于文字阅读 */
+  color: white; /* 文字颜色为白色，清晰可见 */
+  padding: 2px;
+  font-size: 6px;
+  line-height: 1.5;
+  z-index: 1; /* 确保文字在视频上方 */
+  opacity: 0; /* 初始隐藏 */
+  visibility: hidden; /* 初始不可见 */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* 添加动画效果 */
+  pointer-events: none; /* 使文字描述不可阻挡鼠标事件 */
+}
+
+.video-demo .item:hover .prompt-text {
+  opacity: 1; /* 鼠标悬停时显示 */
+  visibility: visible;
+}
+
+
 .results-carousel {
   overflow: hidden;
 }
@@ -222,7 +266,7 @@ body {
 
 .prompt-text {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 18px;
   color: #333;
   position: relative;
